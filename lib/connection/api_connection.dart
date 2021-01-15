@@ -67,3 +67,16 @@ Future getRandomDrink() async {
   }
   return response.data;
 }
+
+Future getPopularDrinks() async {
+  Response response;
+  try {
+    response = await tmdb.get('popular.php');
+    logger.i('Getting popular drinks.');
+    logger.i(response.data);
+  } on DioError catch (e) {
+    logger.e(e);
+    return e.type;
+  }
+  return response.data;
+}
