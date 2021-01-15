@@ -12,23 +12,23 @@ class TransformTo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return OpenContainer(
-        transitionType: ContainerTransitionType.fadeThrough,
+        transitionType: ContainerTransitionType.fade,
         transitionDuration: const Duration(
-          milliseconds: 700,
+          milliseconds: 500,
         ),
         openElevation: 10,
+        // First Widget
         closedBuilder: (_, openContainer) {
           return GestureDetector(
             onTap: openContainer,
             child: firstPage,
           );
         },
-        openColor: Colors.red,
         closedElevation: 5.0,
-        closedShape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
-        closedColor: Colors.red,
+        // closedShape: RoundedRectangleBorder(
+        //   borderRadius: BorderRadius.circular(20),
+        // ),
+        // Second widget
         openBuilder: (_, closeContainer) {
           return GestureDetector(
             onTap: closeContainer,
