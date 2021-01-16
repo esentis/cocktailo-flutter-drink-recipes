@@ -1,14 +1,19 @@
 import 'package:cocktailo/connection/api_connection.dart';
 import 'package:cocktailo/models/Cocktail.dart';
 import 'package:cocktailo/widgets/TransformTo.dart';
+import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
 
 class LandingPage extends StatelessWidget {
+  final dynamic apiResponse;
+  const LandingPage({
+    this.apiResponse,
+  });
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xff1a1a2e),
+      backgroundColor: const Color(0xff1a1a2e),
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -17,69 +22,43 @@ class LandingPage extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Flexible(
-                  flex: 1,
-                  child: Container(
-                    color: Color(0xff1a1a2e),
-                    width: 80,
-                    height: 80,
-                    child: Lottie.asset(
-                      'assets/cocktails.json',
-                    ),
-                  ),
-                ),
-                const Flexible(
-                  flex: 3,
-                  child: Text(
-                    'Cocktailo',
-                    style: TextStyle(
-                      color: Color(0xffe94560),
-                      fontSize: 25,
-                    ),
-                  ),
-                ),
-                Flexible(
-                  flex: 1,
-                  child: Container(
-                    color: Color(0xff1a1a2e),
-                    width: 80,
-                    height: 80,
-                    child: Lottie.asset(
-                      'assets/cocktails.json',
-                    ),
-                  ),
-                ),
+                Container(
+                    height: 100,
+                    width: 100,
+                    child: Image.asset('assets/logo.png'))
               ],
             ),
             Expanded(
-              child: FutureBuilder(
-                future: getPopularDrinks(),
-                builder: (context, snapshot) {
-                  if (!snapshot.hasData) {
-                    return const Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
+              child: ListView.builder(
+                itemCount: apiResponse.length,
+                itemBuilder: (context, index) {
                   return Container(
                     height: MediaQuery.of(context).size.height,
                     width: MediaQuery.of(context).size.width,
                     child: ListView.builder(
                       physics: const BouncingScrollPhysics(),
-                      itemCount: snapshot.data['drinks'].length,
+                      itemCount: apiResponse['drinks'].length,
                       itemBuilder: (context, index) {
                         var cocktail = Cocktail();
                         // We map the snapshot to a cocktail for easier access
-                        cocktail.fromMap(snapshot.data['drinks'][index]);
+                        cocktail.fromMap(apiResponse['drinks'][index]);
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: TransformTo(
-                            firstPage: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Card(
-                                child: Image.network(
-                                  cocktail.image,
-                                ),
+                            firstPage: ExtendedImage.network(
+                              cocktail.image,
+                              width: 400,
+                              height: 400,
+                              fit: BoxFit.fill,
+                              cache: true,
+                              border: Border.all(
+                                color: Colors.red,
+                                width: 1.0,
                               ),
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(30.0),
+                              ),
+                              //cancelToken: cancellationToken,
                             ),
                             secondPage: Scaffold(
                               body: Column(
