@@ -1,4 +1,3 @@
-import 'package:cocktailo/connection/api_connection.dart';
 import 'package:cocktailo/models/Cocktail.dart';
 import 'package:cocktailo/widgets/TransformTo.dart';
 import 'package:extended_image/extended_image.dart';
@@ -58,13 +57,23 @@ class LandingPage extends StatelessWidget {
                               borderRadius: const BorderRadius.all(
                                 Radius.circular(30.0),
                               ),
-                              //cancelToken: cancellationToken,
+                              //cancelToken: CancellationToken(),
                             ),
                             secondPage: Scaffold(
                               body: Column(
                                 children: [
-                                  Image.network(
+                                  ExtendedImage.network(
                                     cocktail.image,
+                                    fit: BoxFit.fill,
+                                    cache: true,
+                                    border: Border.all(
+                                      color: Colors.red,
+                                      width: 1.0,
+                                    ),
+                                    borderRadius: const BorderRadius.all(
+                                      Radius.circular(30.0),
+                                    ),
+                                    //cancelToken: cancellationToken,
                                   ),
                                   Text(
                                     cocktail.name,
