@@ -33,7 +33,7 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return SplashScreen(
       navigateAfterFuture: loadFromFuture(),
-      backgroundColor: const Color(0xff1a1a2e),
+      backgroundColor: const Color(0xffe3f6f5),
       imageBackground: Image.asset('assets/loading_bg.png').image,
       loaderColor: const Color(0xffED1E79),
     );
