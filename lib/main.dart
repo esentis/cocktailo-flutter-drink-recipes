@@ -2,6 +2,7 @@ import 'package:cocktailo/connection/api_connection.dart';
 import 'package:cocktailo/pages/LandingPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:get/get.dart';
 import 'package:splashscreen/splashscreen.dart';
 
@@ -31,11 +32,13 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return SplashScreen(
-      navigateAfterFuture: loadFromFuture(),
-      backgroundColor: const Color(0xffe3f6f5),
-      imageBackground: Image.asset('assets/loading_bg.png').image,
-      loaderColor: const Color(0xffED1E79),
+    return NeumorphicApp(
+      home: SplashScreen(
+        navigateAfterFuture: loadFromFuture(),
+        backgroundColor: const Color(0xff0f1123),
+        imageBackground: Image.asset('assets/loading_bg.png').image,
+        loaderColor: const Color(0xffED1E79),
+      ),
     );
   }
 }

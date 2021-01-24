@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 /// ### Dilemma because...it's obvious.
@@ -38,8 +39,8 @@ class _DilemmaState extends State<Dilemma> {
   double subtitleFontSize = 0;
   double rightWidgetBorderWidth = 5;
   double leftWidgetBorderWidth = 5;
-  Color leftWidgetBorderColor = const Color(0xffe3f6f5);
-  Color rightWidgetBorderColor = const Color(0xffe3f6f5);
+  Color leftWidgetBorderColor = const Color(0xffED1E79);
+  Color rightWidgetBorderColor = const Color(0xffED1E79);
   double leftWidgetShadowRadius = 5;
   double rightWidgetShadowRadius = 5;
   @override
@@ -52,7 +53,16 @@ class _DilemmaState extends State<Dilemma> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: const Color(0xfff1d4d4),
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          colors: [
+            Color(0xff0f1123),
+            Color(0xffff3796),
+            Color(0xff302387),
+          ],
+          begin: Alignment.bottomCenter,
+        ),
+      ),
       child: Padding(
         padding: const EdgeInsets.symmetric(
           vertical: 2,
