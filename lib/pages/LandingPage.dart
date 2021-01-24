@@ -1,4 +1,5 @@
 import 'package:cocktailo/models/Cocktail.dart';
+import 'package:cocktailo/widgets/Dillema.dart';
 import 'package:cocktailo/widgets/TransformTo.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
@@ -12,7 +13,7 @@ class LandingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xff1a1a2e),
+      backgroundColor: const Color(0xffe3f6f5),
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -44,20 +45,39 @@ class LandingPage extends StatelessWidget {
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: TransformTo(
-                            firstPage: ExtendedImage.network(
-                              cocktail.image,
-                              width: 400,
-                              height: 400,
-                              fit: BoxFit.fill,
-                              cache: true,
-                              border: Border.all(
-                                color: Colors.red,
-                                width: 1.0,
+                            firstPage: Dilemma(
+                              width: MediaQuery.of(context).size.width,
+                              height: 150,
+                              leftWidget: ExtendedImage.network(
+                                cocktail.image,
+                                width: 400,
+                                height: 400,
+                                fit: BoxFit.cover,
+                                cache: true,
+                                border: Border.all(
+                                  color: Colors.red,
+                                  width: 1.0,
+                                ),
+                                borderRadius: const BorderRadius.all(
+                                  Radius.circular(30.0),
+                                ),
+                                //cancelToken: CancellationToken(),
                               ),
-                              borderRadius: const BorderRadius.all(
-                                Radius.circular(30.0),
+                              rightWidget: ExtendedImage.network(
+                                cocktail.image,
+                                width: 400,
+                                height: 400,
+                                fit: BoxFit.cover,
+                                cache: true,
+                                border: Border.all(
+                                  color: Colors.red,
+                                  width: 1.0,
+                                ),
+                                borderRadius: const BorderRadius.all(
+                                  Radius.circular(30.0),
+                                ),
+                                //cancelToken: CancellationToken(),
                               ),
-                              //cancelToken: CancellationToken(),
                             ),
                             secondPage: Scaffold(
                               body: Column(
