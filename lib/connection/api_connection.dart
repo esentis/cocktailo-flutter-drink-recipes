@@ -21,7 +21,6 @@ Future getCategories() async {
   try {
     response = await tmdb.get('list.php?c=list');
     logger.i('Getting list of all categories');
-    logger.i(response.data);
   } on DioError catch (e) {
     logger.e(e);
     return e.type;
@@ -34,7 +33,6 @@ Future getIngredients() async {
   try {
     response = await tmdb.get('list.php?i=list');
     logger.i('Getting list of all ingredients.');
-    logger.i(response.data);
   } on DioError catch (e) {
     logger.e(e);
     return e.type;
@@ -47,7 +45,6 @@ Future getAlcoholicFilters() async {
   try {
     response = await tmdb.get('list.php?a=list');
     logger.i('Getting list of alcoholic filters.');
-    logger.i(response.data);
   } on DioError catch (e) {
     logger.e(e);
     return e.type;
@@ -60,7 +57,6 @@ Future getGlassTypes() async {
   try {
     response = await tmdb.get('list.php?g=list');
     logger.i('Getting list of glass types.');
-    logger.i(response.data);
   } on DioError catch (e) {
     logger.e(e);
     return e.type;
@@ -73,7 +69,6 @@ Future getLatestDrinks() async {
   try {
     response = await tmdb.get('latest');
     logger.i('Getting list of latest drinks');
-    logger.i(response.data);
   } on DioError catch (e) {
     logger.e(e);
     return e.type;
@@ -86,7 +81,6 @@ Future getRandomDrink() async {
   try {
     response = await tmdb.get('random');
     logger.i('Getting a random drink.');
-    logger.i(response.data);
   } on DioError catch (e) {
     logger.e(e);
     return e.type;
@@ -99,7 +93,6 @@ Future getPopularDrinks() async {
   try {
     response = await tmdb.get('popular.php');
     logger.i('Getting popular drinks.');
-    logger.i(response.data);
   } on DioError catch (e) {
     logger.e(e);
     return e.type;
@@ -112,7 +105,6 @@ Future searchDrinkByIngredient(String ingredient) async {
   try {
     response = await tmdb.get('filter.php?i=$ingredient');
     logger.i('Search drinks with $ingredient as ingredient.');
-    logger.i(response.data);
   } on DioError catch (e) {
     logger.e(e);
     return e.type;
@@ -125,7 +117,6 @@ Future searchDrinkByName(String name) async {
   try {
     response = await tmdb.get('search.php?i=$name');
     logger.i('Search drinks with name $name.');
-    logger.i(response.data);
   } on DioError catch (e) {
     logger.e(e);
     return e.type;
