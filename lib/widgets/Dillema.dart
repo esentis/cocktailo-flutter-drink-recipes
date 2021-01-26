@@ -14,40 +14,56 @@ class Dilemma extends StatefulWidget {
     this.rightTitle,
     this.rightSubtitle,
     this.leftSubtitle,
+    this.leftTitleColor,
+    this.rightTitleColor,
+    this.onLeftTitleTap,
+    this.onRightTitleTap,
     Key key,
   }) : super(key: key);
 
   final double width;
   final double height;
+
+  // Left widget attributes
   final Widget leftWidget;
-  final Widget rightWidget;
   final String leftTitle;
+  final Color leftTitleColor;
   final String leftSubtitle;
+  final Function onLeftTitleTap;
+
+  // Right widget attributes
+  final Widget rightWidget;
   final String rightTitle;
+  final Color rightTitleColor;
   final String rightSubtitle;
+  final Function onRightTitleTap;
 
   @override
   _DilemmaState createState() => _DilemmaState();
 }
 
 class _DilemmaState extends State<Dilemma> {
+  // Left widget attributes
   double leftContainerWidth;
   double leftContainerOpacity = 1;
+  double leftWidgetBorderWidth = 5;
+  double leftWidgetShadowRadius = 5;
+  Color leftWidgetBorderColor = const Color(0xffED1E79);
+
+  // Right widget attributes
   double rightContainerWidth;
   double rightContainerOpacity = 1;
+  double rightWidgetShadowRadius = 5;
+  double rightWidgetBorderWidth = 5;
+  Color rightWidgetBorderColor = const Color(0xffED1E79);
+
   double titleFontSize = 0;
   double subtitleFontSize = 0;
-  double rightWidgetBorderWidth = 5;
-  double leftWidgetBorderWidth = 5;
-  Color leftWidgetBorderColor = const Color(0xffED1E79);
-  Color rightWidgetBorderColor = const Color(0xffED1E79);
-  double leftWidgetShadowRadius = 5;
-  double rightWidgetShadowRadius = 5;
   @override
   void initState() {
     super.initState();
-    leftContainerWidth = (widget.width / 2) - 20;
-    rightContainerWidth = (widget.width / 2) - 20;
+    leftContainerWidth = (widget.width / 2) - 10;
+    rightContainerWidth = (widget.width / 2) - 10;
   }
 
   @override
@@ -76,14 +92,13 @@ class _DilemmaState extends State<Dilemma> {
             minWidth: widget.width,
           ),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               GestureDetector(
                 onTap: () {
                   setState(() {
                     if (leftContainerWidth == (widget.width - 20)) {
-                      leftContainerWidth = (widget.width / 2) - 20;
-                      rightContainerWidth = (widget.width / 2) - 20;
+                      leftContainerWidth = (widget.width / 2) - 10;
+                      rightContainerWidth = (widget.width / 2) - 10;
                       rightContainerOpacity = 1;
                       leftWidgetBorderWidth = 5;
                       rightWidgetShadowRadius = 5;
@@ -131,29 +146,33 @@ class _DilemmaState extends State<Dilemma> {
                             child: widget.leftWidget,
                           ),
                         ),
-                        AnimatedOpacity(
-                          opacity:
-                              leftContainerWidth == (widget.width - 20) ? 1 : 0,
-                          duration: const Duration(milliseconds: 300),
+                        Center(
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Flexible(
-                                child: Text(
-                                  widget.leftTitle ?? '',
-                                  maxLines: 1,
-                                  style: GoogleFonts.robotoCondensed(
-                                    color: Colors.white,
-                                    fontSize: 22,
-                                    fontWeight: FontWeight.bold,
-                                    shadows: [
-                                      BoxShadow(
-                                        blurRadius: leftWidgetShadowRadius,
-                                        color: Colors.white,
-                                        spreadRadius: leftWidgetShadowRadius,
-                                      )
-                                    ],
+                                child: GestureDetector(
+                                  onTap: widget.onLeftTitleTap,
+                                  child: AnimatedDefaultTextStyle(
+                                    duration: const Duration(milliseconds: 300),
+                                    child: Text(widget.leftTitle ?? ''),
+                                    maxLines: 1,
+                                    textAlign: TextAlign.center,
+                                    style: GoogleFonts.robotoCondensed(
+                                      color: widget.leftTitleColor,
+                                      fontSize: leftContainerWidth ==
+                                              (widget.width - 20)
+                                          ? 22
+                                          : 17,
+                                      fontWeight: FontWeight.bold,
+                                      shadows: [
+                                        BoxShadow(
+                                          blurRadius: leftWidgetShadowRadius,
+                                          color: Colors.white,
+                                          spreadRadius: leftWidgetShadowRadius,
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
@@ -176,7 +195,7 @@ class _DilemmaState extends State<Dilemma> {
                               ),
                             ],
                           ),
-                        )
+                        ),
                       ],
                     ),
                   ),
@@ -186,8 +205,8 @@ class _DilemmaState extends State<Dilemma> {
                 onTap: () {
                   setState(() {
                     if (rightContainerWidth == (widget.width - 20)) {
-                      leftContainerWidth = (widget.width / 2) - 20;
-                      rightContainerWidth = (widget.width / 2) - 20;
+                      leftContainerWidth = (widget.width / 2) - 10;
+                      rightContainerWidth = (widget.width / 2) - 10;
                       leftContainerOpacity = 1;
                       rightWidgetBorderWidth = 5;
                     } else {
@@ -230,30 +249,33 @@ class _DilemmaState extends State<Dilemma> {
                               ),
                               child: widget.rightWidget),
                         ),
-                        AnimatedOpacity(
-                          opacity: rightContainerWidth == (widget.width - 20)
-                              ? 1
-                              : 0,
-                          duration: const Duration(milliseconds: 300),
+                        Center(
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.end,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Flexible(
-                                child: Text(
-                                  widget.rightTitle ?? '',
-                                  maxLines: 1,
-                                  style: GoogleFonts.robotoCondensed(
-                                    color: Colors.white,
-                                    fontSize: 22,
-                                    fontWeight: FontWeight.bold,
-                                    shadows: [
-                                      const BoxShadow(
-                                        blurRadius: 5,
-                                        color: Colors.white,
-                                        spreadRadius: 5,
-                                      )
-                                    ],
+                                child: GestureDetector(
+                                  onTap: widget.onRightTitleTap,
+                                  child: AnimatedDefaultTextStyle(
+                                    duration: const Duration(milliseconds: 300),
+                                    child: Text(widget.rightTitle ?? ''),
+                                    maxLines: 1,
+                                    style: GoogleFonts.robotoCondensed(
+                                      color: widget.rightTitleColor,
+                                      fontSize: rightContainerWidth ==
+                                              widget.width - 20
+                                          ? 22
+                                          : 17,
+                                      fontWeight: FontWeight.bold,
+                                      shadows: [
+                                        const BoxShadow(
+                                          blurRadius: 5,
+                                          color: Colors.white,
+                                          spreadRadius: 5,
+                                        )
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
