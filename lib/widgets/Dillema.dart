@@ -146,54 +146,44 @@ class _DilemmaState extends State<Dilemma> {
                             child: widget.leftWidget,
                           ),
                         ),
-                        Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Flexible(
-                                child: GestureDetector(
-                                  onTap: widget.onLeftTitleTap,
-                                  child: AnimatedDefaultTextStyle(
-                                    duration: const Duration(milliseconds: 300),
-                                    child: Text(widget.leftTitle ?? ''),
-                                    maxLines: 1,
-                                    textAlign: TextAlign.center,
-                                    style: GoogleFonts.robotoCondensed(
-                                      color: widget.leftTitleColor,
-                                      fontSize: leftContainerWidth ==
-                                              (widget.width - 20)
-                                          ? 22
-                                          : 17,
-                                      fontWeight: FontWeight.bold,
-                                      shadows: [
-                                        BoxShadow(
-                                          blurRadius: leftWidgetShadowRadius,
-                                          color: Colors.white,
-                                          spreadRadius: leftWidgetShadowRadius,
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Flexible(
-                                child: Text(
-                                  widget.leftSubtitle ?? '',
+                        Align(
+                          alignment: Alignment.bottomCenter,
+                          child: AnimatedOpacity(
+                            duration: const Duration(milliseconds: 300),
+                            opacity: rightContainerWidth == (widget.width - 20)
+                                ? 0
+                                : 1,
+                            child: Padding(
+                              padding: const EdgeInsets.only(bottom: 8.0),
+                              child: GestureDetector(
+                                onTap: widget.onLeftTitleTap,
+                                child: AnimatedDefaultTextStyle(
+                                  duration: const Duration(milliseconds: 300),
+                                  child: Text(widget.leftTitle ?? ''),
                                   maxLines: 1,
-                                  style: GoogleFonts.robotoCondensed(
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
                                     color: Colors.white,
-                                    fontSize: 18,
+                                    fontSize: leftContainerWidth ==
+                                            (widget.width - 20)
+                                        ? 22
+                                        : 13,
+                                    fontFamily: 'LEMONMILK',
+                                    fontWeight: leftContainerWidth ==
+                                            (widget.width - 20)
+                                        ? FontWeight.w700
+                                        : FontWeight.w100,
                                     shadows: [
-                                      const BoxShadow(
+                                      BoxShadow(
                                         blurRadius: 5,
-                                        color: Colors.white,
+                                        color: widget.rightTitleColor,
                                         spreadRadius: 5,
                                       )
                                     ],
                                   ),
                                 ),
                               ),
-                            ],
+                            ),
                           ),
                         ),
                       ],
@@ -249,53 +239,40 @@ class _DilemmaState extends State<Dilemma> {
                               ),
                               child: widget.rightWidget),
                         ),
-                        Center(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Flexible(
-                                child: GestureDetector(
-                                  onTap: widget.onRightTitleTap,
-                                  child: AnimatedDefaultTextStyle(
-                                    duration: const Duration(milliseconds: 300),
-                                    child: Text(widget.rightTitle ?? ''),
-                                    maxLines: 1,
-                                    style: GoogleFonts.robotoCondensed(
+                        Align(
+                          alignment: Alignment.bottomCenter,
+                          child: Padding(
+                            padding: const EdgeInsets.only(bottom: 8.0),
+                            child: GestureDetector(
+                              onTap: widget.onRightTitleTap,
+                              child: AnimatedDefaultTextStyle(
+                                duration: const Duration(milliseconds: 300),
+                                child: Text(widget.rightTitle ?? ''),
+                                textAlign: TextAlign.center,
+                                maxLines: 1,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: rightContainerWidth ==
+                                          widget.width - 20
+                                      ? 22
+                                      : leftContainerWidth > rightContainerWidth
+                                          ? 0
+                                          : 13,
+                                  fontFamily: 'LEMONMILK',
+                                  fontWeight:
+                                      rightContainerWidth == widget.width - 20
+                                          ? FontWeight.w700
+                                          : FontWeight.w100,
+                                  shadows: [
+                                    BoxShadow(
+                                      blurRadius: 5,
                                       color: widget.rightTitleColor,
-                                      fontSize: rightContainerWidth ==
-                                              widget.width - 20
-                                          ? 22
-                                          : 17,
-                                      fontWeight: FontWeight.bold,
-                                      shadows: [
-                                        const BoxShadow(
-                                          blurRadius: 5,
-                                          color: Colors.white,
-                                          spreadRadius: 5,
-                                        )
-                                      ],
-                                    ),
-                                  ),
+                                      spreadRadius: 5,
+                                    )
+                                  ],
                                 ),
                               ),
-                              Flexible(
-                                child: Text(
-                                  widget.rightSubtitle ?? '',
-                                  style: GoogleFonts.robotoCondensed(
-                                    color: Colors.white,
-                                    fontSize: 18,
-                                    shadows: [
-                                      BoxShadow(
-                                        blurRadius: rightWidgetShadowRadius,
-                                        color: Colors.white,
-                                        spreadRadius: rightWidgetShadowRadius,
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ],
+                            ),
                           ),
                         )
                       ],
