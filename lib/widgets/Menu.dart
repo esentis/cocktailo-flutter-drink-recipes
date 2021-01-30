@@ -1,6 +1,9 @@
+import 'package:cocktailo/constants.dart';
+import 'package:cocktailo/pages/IngredientsPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:get/get.dart';
 
 class Menu extends StatelessWidget {
   const Menu({
@@ -13,19 +16,21 @@ class Menu extends StatelessWidget {
       children: [
         Flexible(
           child: NeumorphicButton(
-            onPressed: () {},
-            style: const NeumorphicStyle(
-              color: Color(0xffED1E79),
-              shadowDarkColor: Color(0xffED1E79),
-              shadowDarkColorEmboss: Color(0xffED1E79),
-              shadowLightColor: Color(0xffED1E79),
-              shadowLightColorEmboss: Color(0xffED1E79),
+            onPressed: () {
+              Get.to(IngredientsPage());
+            },
+            style: NeumorphicStyle(
+              color: kColorPink,
+              shadowDarkColor: kColorPink,
+              shadowDarkColorEmboss: kColorPink,
+              shadowLightColor: kColorPink,
+              shadowLightColorEmboss: kColorPink,
               depth: 2,
               intensity: 0.5,
               lightSource: LightSource.topLeft,
               surfaceIntensity: 0.5,
               shape: NeumorphicShape.convex,
-              boxShape: NeumorphicBoxShape.circle(),
+              boxShape: const NeumorphicBoxShape.circle(),
             ),
             child: const Center(
               child: Icon(
@@ -38,18 +43,18 @@ class Menu extends StatelessWidget {
         Flexible(
           child: NeumorphicButton(
             onPressed: () {},
-            style: const NeumorphicStyle(
-              color: Color(0xffED1E79),
-              shadowDarkColor: Color(0xffED1E79),
-              shadowDarkColorEmboss: Color(0xffED1E79),
-              shadowLightColor: Color(0xffED1E79),
-              shadowLightColorEmboss: Color(0xffED1E79),
+            style: NeumorphicStyle(
+              color: kColorPink,
+              shadowDarkColor: kColorPink,
+              shadowDarkColorEmboss: kColorPink,
+              shadowLightColor: kColorPink,
+              shadowLightColorEmboss: kColorPink,
               depth: 2,
               intensity: 0.5,
               lightSource: LightSource.topLeft,
               surfaceIntensity: 0.5,
               shape: NeumorphicShape.convex,
-              boxShape: NeumorphicBoxShape.circle(),
+              boxShape: const NeumorphicBoxShape.circle(),
             ),
             child: const Center(
               child: Icon(
@@ -62,23 +67,23 @@ class Menu extends StatelessWidget {
         Flexible(
           child: NeumorphicButton(
             onPressed: () {},
-            style: const NeumorphicStyle(
-              color: Color(0xffED1E79),
-              shadowDarkColor: Color(0xffED1E79),
-              shadowDarkColorEmboss: Color(0xffED1E79),
-              shadowLightColor: Color(0xffED1E79),
-              shadowLightColorEmboss: Color(0xffED1E79),
+            style: NeumorphicStyle(
+              color: kColorPink,
+              shadowDarkColor: kColorPink,
+              shadowDarkColorEmboss: kColorPink,
+              shadowLightColor: kColorPink,
+              shadowLightColorEmboss: kColorPink,
               depth: 2,
               intensity: 0.5,
               lightSource: LightSource.topLeft,
               surfaceIntensity: 0.5,
               shape: NeumorphicShape.convex,
-              boxShape: NeumorphicBoxShape.circle(),
+              boxShape: const NeumorphicBoxShape.circle(),
             ),
-            child: const Center(
+            child: Center(
               child: Icon(
                 Foundation.heart,
-                color: Color(0xff0f1123),
+                color: kColorDarkBlue,
                 size: 15,
               ),
             ),

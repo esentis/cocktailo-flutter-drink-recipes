@@ -1,4 +1,5 @@
 import 'package:cocktailo/connection/api_connection.dart';
+import 'package:cocktailo/constants.dart';
 import 'package:cocktailo/pages/LandingPage.dart';
 import 'package:cocktailo/provider/chosen_cocktail.dart';
 import 'package:flutter/material.dart';
@@ -39,9 +40,24 @@ class _MyAppState extends State<MyApp> {
       child: NeumorphicApp(
         home: SplashScreen(
           navigateAfterFuture: loadFromFuture(),
-          backgroundColor: const Color(0xff0f1123),
+          loadingText: Text(
+            'Preparing cocktails...',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 13,
+              fontFamily: 'LEMONMILK',
+              shadows: [
+                BoxShadow(
+                  blurRadius: 5,
+                  color: kColorPink,
+                  spreadRadius: 5,
+                )
+              ],
+            ),
+          ),
+          backgroundColor: kColorDarkBlue,
           imageBackground: Image.asset('assets/loading_bg.png').image,
-          loaderColor: const Color(0xffED1E79),
+          loaderColor: kColorPink,
         ),
       ),
     );

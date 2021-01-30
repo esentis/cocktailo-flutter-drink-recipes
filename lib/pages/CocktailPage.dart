@@ -1,3 +1,4 @@
+import 'package:cocktailo/constants.dart';
 import 'package:cocktailo/models/Cocktail.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,7 @@ class CocktailPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xff0f1123),
+      backgroundColor: kColorDarkBlue,
       body: Column(
         children: [
           Stack(
@@ -49,20 +50,19 @@ class CocktailPage extends StatelessWidget {
                   child: NeumorphicButton(
                     onPressed: onBack,
                     style: NeumorphicStyle(
-                      color: const Color(0xff0f1123),
-                      shadowDarkColor: const Color(0xff0f1123).withOpacity(0.9),
-                      shadowDarkColorEmboss: const Color(0xffED1E79),
-                      shadowLightColorEmboss: const Color(0xffED1E79),
-                      shadowLightColor:
-                          const Color(0xff0f1123).withOpacity(0.9),
+                      color: kColorDarkBlue,
+                      shadowDarkColor: kColorDarkBlue.withOpacity(0.9),
+                      shadowDarkColorEmboss: kColorPink,
+                      shadowLightColorEmboss: kColorPink,
+                      shadowLightColor: kColorDarkBlue.withOpacity(0.9),
                       shape: NeumorphicShape.convex,
                       boxShape: const NeumorphicBoxShape.circle(),
                     ),
                     padding: const EdgeInsets.all(5),
-                    child: const Icon(
+                    child: Icon(
                       Foundation.arrow_left,
                       size: 35,
-                      color: Color(0xffED1E79),
+                      color: kColorPink,
                     ),
                   ),
                 ),
@@ -71,14 +71,14 @@ class CocktailPage extends StatelessWidget {
           ),
           Text(
             cocktail.name,
-            style: const TextStyle(
+            style: TextStyle(
               color: Colors.white,
               fontSize: 22,
               fontFamily: 'LEMONMILK',
               shadows: [
                 BoxShadow(
                   blurRadius: 5,
-                  color: Color(0xffED1E79),
+                  color: kColorPink,
                   spreadRadius: 5,
                 )
               ],

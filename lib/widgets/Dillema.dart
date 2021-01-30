@@ -1,3 +1,4 @@
+import 'package:cocktailo/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
@@ -69,12 +70,12 @@ class _DilemmaState extends State<Dilemma> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
+      decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            Color(0xff0f1123),
-            Color(0xffff3796),
-            Color(0xff302387),
+            kColorDarkBlue,
+            kColorPink,
+            const Color(0xff302387),
           ],
           begin: Alignment.bottomCenter,
         ),
@@ -136,8 +137,7 @@ class _DilemmaState extends State<Dilemma> {
                                 BoxShadow(
                                   blurRadius: 10,
                                   spreadRadius: 1,
-                                  color:
-                                      const Color(0xff1a1a2e).withOpacity(0.5),
+                                  color: kColorDarkBlue.withOpacity(0.5),
                                   offset: const Offset(2, 0),
                                 )
                               ],
@@ -231,8 +231,7 @@ class _DilemmaState extends State<Dilemma> {
                                   BoxShadow(
                                     blurRadius: 10,
                                     spreadRadius: 1,
-                                    color: const Color(0xff1a1a2e)
-                                        .withOpacity(0.5),
+                                    color: kColorDarkBlue.withOpacity(0.5),
                                     offset: const Offset(-2, 0),
                                   )
                                 ],

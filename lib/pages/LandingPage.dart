@@ -1,4 +1,5 @@
 import 'package:animations/animations.dart';
+import 'package:cocktailo/constants.dart';
 import 'package:cocktailo/models/Cocktail.dart';
 import 'package:cocktailo/pages/CocktailPage.dart';
 import 'package:cocktailo/provider/chosen_cocktail.dart';
@@ -51,7 +52,7 @@ class _LandingPageState extends State<LandingPage> {
     // We set a default cocktail for the state, it doesn't really matter it's just for the init.
     chosenCocktailState.chosenCocktail = cocktailsFirstHalf[0];
     return Scaffold(
-      backgroundColor: const Color(0xff0f1123),
+      backgroundColor: kColorDarkBlue,
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -93,7 +94,7 @@ class _LandingPageState extends State<LandingPage> {
                                     cocktailsFirstHalf[index];
                                 openContainer();
                               },
-                              leftTitleColor: const Color(0xffED1E79),
+                              leftTitleColor: kColorPink,
                               width: MediaQuery.of(context).size.width,
                               height: 100,
                               leftWidget: ExtendedImage.network(
@@ -126,7 +127,7 @@ class _LandingPageState extends State<LandingPage> {
                                 ),
                                 //cancelToken: CancellationToken(),
                               ),
-                              rightTitleColor: const Color(0xffED1E79),
+                              rightTitleColor: kColorPink,
                               rightTitle: cocktailsSecondHalf[index].name,
                               onRightTitleTap: () {
                                 print('right_cocktail_tapped');
