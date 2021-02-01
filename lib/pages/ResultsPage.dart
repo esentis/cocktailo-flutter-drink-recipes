@@ -1,6 +1,7 @@
 import 'package:cocktailo/connection/api_connection.dart';
 import 'package:cocktailo/constants.dart';
 import 'package:cocktailo/models/Cocktail.dart';
+import 'package:cocktailo/pages/CocktailPage.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
@@ -22,12 +23,22 @@ class ResultsPage extends StatefulWidget {
 
 class _ResultsPageState extends State<ResultsPage> {
   List<Cocktail> cocktails = [];
-  void mapCocktails(List<dynamic> drinks) {
-    drinks.forEach((element) {
+  void searchResults() async {
+    var response = await searchDrinkByIngredient(widget.ingredient);
+
+    response['drinks'].forEach((element) {
       var cocktail = Cocktail();
       cocktail.fromMap(element);
       cocktails.add(cocktail);
     });
+    logger.wtf(cocktails.length.toString());
+    setState(() {});
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    searchResults();
   }
 
   @override
@@ -73,62 +84,44 @@ class _ResultsPageState extends State<ResultsPage> {
           ),
         ),
       ),
-      body: FutureBuilder(
-        future: searchDrinkByIngredient(widget.ingredient),
-        builder: (context, snapshot) {
-          if (!snapshot.hasData) {
-            return Center(
-              child: CircularProgressIndicator(
-                backgroundColor: kColorPink.withOpacity(0.5),
-                valueColor: AlwaysStoppedAnimation<Color>(kColorPink),
-                strokeWidth: 14,
+      body: ListView.builder(
+        itemCount: cocktails.length,
+        itemBuilder: (context, index) => NeumorphicButton(
+          onPressed: () async {
+            await Get.to(
+              CocktailPage(
+                cocktail: cocktails[index],
               ),
             );
-          }
-
-          logger.wtf(snapshot.data);
-          mapCocktails(snapshot.data['drinks']);
-          return Container(
-            height: MediaQuery.of(context).size.height,
-            width: MediaQuery.of(context).size.width,
-            child: ListView(
-              children: [
-                ...cocktails.map((drink) {
-                  return NeumorphicButton(
-                    style: NeumorphicStyle(
-                      color: kColorDarkBlue,
-                      shadowDarkColor: kColorPink,
-                      shadowDarkColorEmboss: kColorPink,
-                      shadowLightColorEmboss: kColorPink,
-                      shadowLightColor: Colors.transparent,
-                      shape: NeumorphicShape.convex,
-                    ),
-                    child: ListTile(
-                      leading: ExtendedImage.network(drink.image),
-                      title: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(drink.name,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 15,
-                              fontFamily: 'LEMONMILK',
-                              shadows: [
-                                BoxShadow(
-                                  blurRadius: 5,
-                                  color: kColorPink,
-                                  spreadRadius: 5,
-                                )
-                              ],
-                            )),
-                      ),
-                    ),
-                  );
-                })
-              ],
-              physics: const BouncingScrollPhysics(),
+          },
+          style: NeumorphicStyle(
+            color: kColorDarkBlue,
+            shadowDarkColor: kColorPink,
+            shadowDarkColorEmboss: kColorPink,
+            shadowLightColorEmboss: kColorPink,
+            shadowLightColor: Colors.transparent,
+            shape: NeumorphicShape.convex,
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              cocktails[index].name,
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 22,
+                fontFamily: 'LEMONMILK',
+                shadows: [
+                  BoxShadow(
+                    blurRadius: 5,
+                    color: kColorPink,
+                    spreadRadius: 5,
+                  )
+                ],
+              ),
             ),
-          );
-        },
+          ),
+        ),
+        physics: const BouncingScrollPhysics(),
       ),
     );
   }
