@@ -4,16 +4,42 @@ import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
-class CocktailPage extends StatelessWidget {
+class CocktailPage extends StatefulWidget {
   const CocktailPage({
     @required this.cocktail,
-    @required this.onBack,
+    this.onBack,
     Key key,
   }) : super(key: key);
 
   final Cocktail cocktail;
   final Function onBack;
+
+  @override
+  _CocktailPageState createState() => _CocktailPageState();
+}
+
+class _CocktailPageState extends State<CocktailPage> {
+  YoutubePlayerController _controller;
+  @override
+  void initState() {
+    super.initState();
+    // This is how the response looks
+    if (widget.cocktail.videoUrl != 'null' &&
+        widget.cocktail.videoUrl.isNotEmpty) {
+      logger.wtf(widget.cocktail.videoUrl);
+      var videoId = YoutubePlayer.convertUrlToId(widget.cocktail.videoUrl);
+      _controller = YoutubePlayerController(
+        initialVideoId: videoId,
+        flags: const YoutubePlayerFlags(
+          autoPlay: true,
+          mute: true,
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +54,7 @@ class CocktailPage extends StatelessWidget {
                   bottomLeft: Radius.circular(25),
                 ),
                 child: ExtendedImage.network(
-                  cocktail.image,
+                  widget.cocktail.image,
                   fit: BoxFit.fill,
                   cache: true,
                   border: Border.all(
@@ -48,7 +74,7 @@ class CocktailPage extends StatelessWidget {
                     vertical: 5,
                   ),
                   child: NeumorphicButton(
-                    onPressed: onBack,
+                    onPressed: widget.onBack,
                     style: NeumorphicStyle(
                       color: kColorDarkBlue,
                       shadowDarkColor: kColorDarkBlue.withOpacity(0.9),
@@ -70,7 +96,7 @@ class CocktailPage extends StatelessWidget {
             ],
           ),
           Text(
-            cocktail.name,
+            widget.cocktail.name,
             style: TextStyle(
               color: Colors.white,
               fontSize: 22,
@@ -93,7 +119,7 @@ class CocktailPage extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  ...cocktail.ingredients
+                  ...widget.cocktail.ingredients
                       .map((e) => Flexible(
                             child: Column(
                               children: [
@@ -145,7 +171,7 @@ class CocktailPage extends StatelessWidget {
                 horizontal: 10.0,
               ),
               child: Text(
-                cocktail.instructions,
+                widget.cocktail.instructions,
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                   color: Colors.white,
@@ -162,6 +188,19 @@ class CocktailPage extends StatelessWidget {
               ),
             ),
           ),
+          if (widget.cocktail.videoUrl != 'null' &&
+              widget.cocktail.videoUrl.isNotEmpty)
+            Flexible(
+              flex: 2,
+              child: YoutubePlayer(
+                controller: _controller,
+                bottomActions: [
+                  CurrentPosition(),
+                  ProgressBar(isExpanded: true),
+                  RemainingDuration(),
+                ],
+              ),
+            ),
         ],
       ),
     );
