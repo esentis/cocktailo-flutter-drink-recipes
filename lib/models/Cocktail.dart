@@ -4,12 +4,13 @@ import 'package:logger/logger.dart';
 var logger = Logger();
 
 class Cocktail {
-  int id;
-  String name;
-  String category;
-  String glassType;
-  String image;
-  String instructions;
+  int id = 0;
+  String name = '';
+  String category = '';
+  String glassType = '';
+  String image = '';
+  String instructions = '';
+  String videoUrl = '';
   List<Ingredient> ingredients = [];
 
   /// Method that creates a Cocktail object from Map API response.
@@ -18,6 +19,12 @@ class Cocktail {
         .firstWhere((element) => element.key == 'idDrink')
         .value
         .toString());
+    videoUrl = cocktailMap.entries.contains('strVideo')
+        ? cocktailMap.entries
+            .firstWhere((element) => element.key == 'strVideo')
+            .value
+            .toString()
+        : '';
     name = cocktailMap.entries
         .firstWhere((element) => element.key == 'strDrink')
         .value
@@ -46,12 +53,11 @@ class Cocktail {
             .value
             .toString()
         : '';
-    var ingredientsMapped = cocktailMap.entries.contains('strIngredient')
-        ? cocktailMap.entries
-            .where((element) =>
-                element.key.contains('strIngredient') && element.value != null)
-            .toList()
-        : [];
+
+    var ingredientsMapped = cocktailMap.entries
+        .where((element) =>
+            element.key.contains('strIngredient') && element.value != null)
+        .toList();
     var measures = cocktailMap.entries
         .where((element) =>
             element.key.contains('strMeasure') && element.value != null)
