@@ -1,20 +1,19 @@
 import 'package:cocktailo/connection/api_connection.dart';
 import 'package:cocktailo/constants.dart';
-import 'package:cocktailo/pages/ResultsPage.dart';
+import 'package:cocktailo/pages/mobile/results_page_mobile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 
 var logger = Logger();
 
-class IngredientsPage extends StatefulWidget {
+class IngredientsPageMobile extends StatefulWidget {
   @override
-  _IngredientsPageState createState() => _IngredientsPageState();
+  _IngredientsPageMobileState createState() => _IngredientsPageMobileState();
 }
 
-class _IngredientsPageState extends State<IngredientsPage> {
+class _IngredientsPageMobileState extends State<IngredientsPageMobile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,17 +38,8 @@ class _IngredientsPageState extends State<IngredientsPage> {
             ),
           ),
         ),
-        leading: NeumorphicButton(
+        leading: FlatButton(
           onPressed: Get.back,
-          style: NeumorphicStyle(
-            color: kColorDarkBlue,
-            shadowDarkColor: kColorDarkBlue.withOpacity(0.9),
-            shadowDarkColorEmboss: kColorPink,
-            shadowLightColorEmboss: kColorPink,
-            shadowLightColor: kColorDarkBlue.withOpacity(0.9),
-            shape: NeumorphicShape.convex,
-            boxShape: const NeumorphicBoxShape.circle(),
-          ),
           padding: const EdgeInsets.all(5),
           child: Icon(
             Foundation.arrow_left,
@@ -82,23 +72,15 @@ class _IngredientsPageState extends State<IngredientsPage> {
                   horizontal: 14.0,
                   vertical: 12,
                 ),
-                child: NeumorphicButton(
+                child: FlatButton(
                   onPressed: () async {
                     await Get.to(
-                      ResultsPage(
+                      ResultsPageMobile(
                         ingredient: snapshot.data['drinks'][index]
                             ['strIngredient1'],
                       ),
                     );
                   },
-                  style: NeumorphicStyle(
-                    color: kColorDarkBlue,
-                    shadowDarkColor: kColorPink,
-                    shadowDarkColorEmboss: kColorPink,
-                    shadowLightColorEmboss: kColorPink,
-                    shadowLightColor: Colors.transparent,
-                    shape: NeumorphicShape.convex,
-                  ),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(

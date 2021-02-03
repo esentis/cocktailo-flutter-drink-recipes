@@ -1,13 +1,12 @@
 import 'package:cocktailo/constants.dart';
-import 'package:cocktailo/models/Cocktail.dart';
+import 'package:cocktailo/models/cocktail.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
-class CocktailPage extends StatefulWidget {
-  const CocktailPage({
+class CocktailPageMobile extends StatefulWidget {
+  const CocktailPageMobile({
     @required this.cocktail,
     this.onBack,
     Key key,
@@ -17,10 +16,10 @@ class CocktailPage extends StatefulWidget {
   final Function onBack;
 
   @override
-  _CocktailPageState createState() => _CocktailPageState();
+  _CocktailPageMobileState createState() => _CocktailPageMobileState();
 }
 
-class _CocktailPageState extends State<CocktailPage> {
+class _CocktailPageMobileState extends State<CocktailPageMobile> {
   YoutubePlayerController _controller;
   @override
   void initState() {
@@ -73,17 +72,8 @@ class _CocktailPageState extends State<CocktailPage> {
                     horizontal: 10.0,
                     vertical: 5,
                   ),
-                  child: NeumorphicButton(
+                  child: FlatButton(
                     onPressed: widget.onBack,
-                    style: NeumorphicStyle(
-                      color: kColorDarkBlue,
-                      shadowDarkColor: kColorDarkBlue.withOpacity(0.9),
-                      shadowDarkColorEmboss: kColorPink,
-                      shadowLightColorEmboss: kColorPink,
-                      shadowLightColor: kColorDarkBlue.withOpacity(0.9),
-                      shape: NeumorphicShape.convex,
-                      boxShape: const NeumorphicBoxShape.circle(),
-                    ),
                     padding: const EdgeInsets.all(5),
                     child: Icon(
                       Foundation.arrow_left,

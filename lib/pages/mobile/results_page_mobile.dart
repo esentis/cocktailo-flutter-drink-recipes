@@ -1,27 +1,25 @@
 import 'package:cocktailo/connection/api_connection.dart';
 import 'package:cocktailo/constants.dart';
-import 'package:cocktailo/models/Cocktail.dart';
-import 'package:cocktailo/pages/CocktailPage.dart';
-import 'package:extended_image/extended_image.dart';
+import 'package:cocktailo/models/cocktail.dart';
+import 'package:cocktailo/pages/mobile/cocktail_page_mobile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 
 var logger = Logger();
 
 // TODO: FIX THE LIST
-class ResultsPage extends StatefulWidget {
+class ResultsPageMobile extends StatefulWidget {
   final String ingredient;
-  const ResultsPage({
+  const ResultsPageMobile({
     this.ingredient,
   });
   @override
-  _ResultsPageState createState() => _ResultsPageState();
+  _ResultsPageMobileState createState() => _ResultsPageMobileState();
 }
 
-class _ResultsPageState extends State<ResultsPage> {
+class _ResultsPageMobileState extends State<ResultsPageMobile> {
   List<Cocktail> cocktails = [];
   void searchResults() async {
     var response = await searchDrinkByIngredient(widget.ingredient);
@@ -65,17 +63,8 @@ class _ResultsPageState extends State<ResultsPage> {
             ),
           ),
         ),
-        leading: NeumorphicButton(
+        leading: FlatButton(
           onPressed: Get.back,
-          style: NeumorphicStyle(
-            color: kColorDarkBlue,
-            shadowDarkColor: kColorDarkBlue.withOpacity(0.9),
-            shadowDarkColorEmboss: kColorPink,
-            shadowLightColorEmboss: kColorPink,
-            shadowLightColor: kColorDarkBlue.withOpacity(0.9),
-            shape: NeumorphicShape.convex,
-            boxShape: const NeumorphicBoxShape.circle(),
-          ),
           padding: const EdgeInsets.all(5),
           child: Icon(
             Foundation.arrow_left,
@@ -86,22 +75,14 @@ class _ResultsPageState extends State<ResultsPage> {
       ),
       body: ListView.builder(
         itemCount: cocktails.length,
-        itemBuilder: (context, index) => NeumorphicButton(
+        itemBuilder: (context, index) => FlatButton(
           onPressed: () async {
             await Get.to(
-              CocktailPage(
+              CocktailPageMobile(
                 cocktail: cocktails[index],
               ),
             );
           },
-          style: NeumorphicStyle(
-            color: kColorDarkBlue,
-            shadowDarkColor: kColorPink,
-            shadowDarkColorEmboss: kColorPink,
-            shadowLightColorEmboss: kColorPink,
-            shadowLightColor: Colors.transparent,
-            shape: NeumorphicShape.convex,
-          ),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(

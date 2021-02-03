@@ -1,4 +1,4 @@
-import 'package:cocktailo/models/Ingredient.dart';
+import 'package:cocktailo/models/ingredient.dart';
 import 'package:logger/logger.dart';
 
 var logger = Logger();

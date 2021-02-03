@@ -1,35 +1,23 @@
 import 'package:animations/animations.dart';
 import 'package:cocktailo/constants.dart';
-import 'package:cocktailo/models/Cocktail.dart';
-import 'package:cocktailo/pages/CocktailPage.dart';
+import 'package:cocktailo/models/cocktail.dart';
+import 'package:cocktailo/pages/mobile/cocktail_page_mobile.dart';
 import 'package:cocktailo/provider/chosen_cocktail.dart';
-import 'package:cocktailo/widgets/Dillema.dart';
+import 'package:cocktailo/widgets/dillema.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
-import 'package:cocktailo/widgets/Menu.dart';
-import 'package:flutter_icons/flutter_icons.dart';
-import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:provider/provider.dart';
+import 'package:cocktailo/widgets/menu.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class LandingPage extends StatefulWidget {
+// ignore: must_be_immutable
+class LandingPageMobile extends ConsumerWidget {
   final dynamic apiResponse;
-  const LandingPage({
+  LandingPageMobile({
     this.apiResponse,
   });
-
-  @override
-  _LandingPageState createState() => _LandingPageState();
-}
-
-class _LandingPageState extends State<LandingPage> {
   List<Cocktail> cocktails = [];
   List<Cocktail> cocktailsFirstHalf = [];
   List<Cocktail> cocktailsSecondHalf = [];
-  @override
-  void initState() {
-    super.initState();
-    mapCocktails(widget.apiResponse['drinks']);
-  }
 
   void mapCocktails(List<dynamic> apiResponse) {
     apiResponse.forEach((element) {
@@ -47,8 +35,9 @@ class _LandingPageState extends State<LandingPage> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    var chosenCocktailState = context.watch<ChosenCocktail>();
+  Widget build(BuildContext context, ScopedReader watch) {
+    mapCocktails(apiResponse['drinks']);
+    var chosenCocktailState = watch(chosenCocktailProvider);
     // We set a default cocktail for the state, it doesn't really matter it's just for the init.
     chosenCocktailState.chosenCocktail = cocktailsFirstHalf[0];
     return Scaffold(
@@ -135,7 +124,8 @@ class _LandingPageState extends State<LandingPage> {
                                     cocktailsSecondHalf[index];
                                 openContainer();
                               }),
-                          openBuilder: (_, closeContainer) => CocktailPage(
+                          openBuilder: (_, closeContainer) =>
+                              CocktailPageMobile(
                             cocktail: chosenCocktailState.chosenCocktail,
                             onBack: closeContainer,
                           ),
