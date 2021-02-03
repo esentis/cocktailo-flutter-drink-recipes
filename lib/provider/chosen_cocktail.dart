@@ -1,5 +1,6 @@
-import 'package:cocktailo/models/Cocktail.dart';
+import 'package:cocktailo/models/cocktail.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ChosenCocktail extends ChangeNotifier {
   Cocktail chosenCocktail;
@@ -11,3 +12,9 @@ class ChosenCocktail extends ChangeNotifier {
     chosenCocktail = cocktail;
   }
 }
+
+final chosenCocktailProvider = ChangeNotifierProvider<ChosenCocktail>(
+  (ref) {
+    return ChosenCocktail();
+  },
+);
