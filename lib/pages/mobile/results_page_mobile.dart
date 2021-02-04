@@ -9,7 +9,6 @@ import 'package:logger/logger.dart';
 
 var logger = Logger();
 
-// TODO: FIX THE LIST
 class ResultsPageMobile extends StatefulWidget {
   final String ingredient;
   const ResultsPageMobile({

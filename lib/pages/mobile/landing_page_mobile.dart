@@ -11,24 +11,19 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // ignore: must_be_immutable
 class LandingPageMobile extends ConsumerWidget {
-  final dynamic apiResponse;
+  final List<Cocktail> cocktailsResponse;
   LandingPageMobile({
-    this.apiResponse,
+    this.cocktailsResponse,
   });
-  List<Cocktail> cocktails = [];
   List<Cocktail> cocktailsFirstHalf = [];
   List<Cocktail> cocktailsSecondHalf = [];
 
-  void mapCocktails(List<dynamic> apiResponse) {
-    apiResponse.forEach((element) {
-      var cocktail = Cocktail();
-      cocktail.fromMap(element);
-      cocktails.add(cocktail);
-    });
-    logger.wtf('All popular cocktails are ${cocktails.length}');
-    cocktailsFirstHalf = cocktails.sublist(0, (cocktails.length / 2).floor());
-    cocktailsSecondHalf =
-        cocktails.sublist((cocktails.length / 2).floor(), cocktails.length);
+  void mapCocktails() {
+    logger.wtf('All popular cocktails are ${cocktailsResponse.length}');
+    cocktailsFirstHalf =
+        cocktailsResponse.sublist(0, (cocktailsResponse.length / 2).floor());
+    cocktailsSecondHalf = cocktailsResponse.sublist(
+        (cocktailsResponse.length / 2).floor(), cocktailsResponse.length);
     logger.wtf(cocktailsFirstHalf.toString());
     logger.wtf(cocktailsSecondHalf.toString());
     logger.wtf('${cocktailsFirstHalf.length} ${cocktailsSecondHalf.length}');
@@ -36,7 +31,7 @@ class LandingPageMobile extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    mapCocktails(apiResponse['drinks']);
+    mapCocktails();
     var chosenCocktailState = watch(chosenCocktailProvider);
     // We set a default cocktail for the state, it doesn't really matter it's just for the init.
     chosenCocktailState.chosenCocktail = cocktailsFirstHalf[0];
