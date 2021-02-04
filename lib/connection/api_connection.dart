@@ -1,3 +1,4 @@
+import 'package:cocktailo/models/cocktail.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:logger/logger.dart';
@@ -97,7 +98,15 @@ Future getPopularDrinks() async {
     logger.e(e);
     return e.type;
   }
-  return response.data;
+
+  // ignore: omit_local_variable_types
+  List<Cocktail> cocktails = [];
+  response.data['drinks'].forEach((element) {
+    var cocktail = Cocktail();
+    cocktail.fromMap(element);
+    cocktails.add(cocktail);
+  });
+  return cocktails;
 }
 
 Future searchDrinkByIngredient(String ingredient) async {
