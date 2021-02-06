@@ -1,14 +1,20 @@
 import 'package:cocktailo/constants.dart';
 import 'package:cocktailo/models/cocktail.dart';
+import 'package:cocktailo/pages/desktop/cocktail_page_desktop.dart';
+import 'package:cocktailo/widgets/animated_search.dart';
+import 'package:draggable_scrollbar/draggable_scrollbar.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:mouse_parallax/mouse_parallax.dart';
 
 // ignore: must_be_immutable
 class LandingPageDesktop extends ConsumerWidget {
   List<Cocktail> cocktails;
   LandingPageDesktop({this.cocktails});
+  final ScrollController _scrollController = ScrollController();
+  final TextEditingController _searchTextController = TextEditingController();
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     return Scaffold(
@@ -19,49 +25,86 @@ class LandingPageDesktop extends ConsumerWidget {
           Flexible(
             child: Align(
               alignment: Alignment.topCenter,
-              child: Container(
-                child: ParallaxStack(layers: [
-                  ParallaxLayer(
-                    yRotation: -0.35,
-                    xOffset: 40,
-                    enable3D: true,
-                    offset: const Offset(340, 0),
-                    child: Image.asset(
-                      'margharita.png',
-                      height: 130,
+              child: Hero(
+                tag: 'cocktail_logo',
+                child: Container(
+                  child: ParallaxStack(layers: [
+                    ParallaxLayer(
+                      yRotation: -0.35,
+                      xOffset: 40,
+                      enable3D: true,
+                      offset: const Offset(340, 0),
+                      child: Image.asset(
+                        'margharita.png',
+                        height: 130,
+                      ),
                     ),
-                  ),
-                  ParallaxLayer(
-                    yRotation: -0.6,
-                    xRotation: -0.1,
-                    offset: const Offset(0, 50),
-                    xOffset: 80,
-                    enable3D: true,
-                    child: Image.asset('logo.png'),
-                  ),
-                ]),
+                    ParallaxLayer(
+                      yRotation: -0.6,
+                      xRotation: -0.1,
+                      offset: const Offset(0, 50),
+                      xOffset: 80,
+                      enable3D: true,
+                      child: Image.asset('logo.png'),
+                    ),
+                  ]),
+                ),
               ),
             ),
+          ),
+          AnimatedSearchBar(
+            width: 250,
+            onTapArrow: () {
+              print('hello');
+            },
+            onSubmit: (value) {
+              print('$value submitted');
+            },
+            textController: _searchTextController,
+            onSuffixTap: () {
+              print('tapped');
+            },
+            rtl: true,
           ),
           Flexible(
             flex: 4,
             child: Padding(
-              padding: const EdgeInsets.all(18.0),
-              child: GridView.builder(
-                physics: const BouncingScrollPhysics(),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 5,
-                  crossAxisSpacing: 5.0,
-                  mainAxisSpacing: 5.0,
+              padding: const EdgeInsets.only(left: 18.0),
+              child: DraggableScrollbar.rrect(
+                backgroundColor: kColorPink,
+                alwaysVisibleScrollThumb: true,
+                heightScrollThumb: 75,
+                labelTextBuilder: (val) =>
+                    Text('Total cocktails ${cocktails.length}'),
+                labelConstraints: const BoxConstraints(
+                  minWidth: 135,
+                  maxHeight: 40,
                 ),
-                itemCount: cocktails.length,
-                itemBuilder: (context, index) => ClipRRect(
-                  borderRadius: BorderRadius.circular(20),
-                  child: Container(
-                    width: 150,
-                    height: 150,
-                    child: ExtendedImage(
-                      image: Image.network(cocktails[index].image).image,
+                controller: _scrollController,
+                child: GridView.builder(
+                  controller: _scrollController,
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 5,
+                    crossAxisSpacing: 5.0,
+                    mainAxisSpacing: 5.0,
+                  ),
+                  itemCount: cocktails.length,
+                  itemBuilder: (context, index) => GestureDetector(
+                    onTap: () async {
+                      await Get.to(CocktailPageDesktop(cocktails[index]));
+                    },
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: Container(
+                        width: 150,
+                        height: 150,
+                        child: Hero(
+                          tag: cocktails[index].image,
+                          child: ExtendedImage(
+                            image: Image.network(cocktails[index].image).image,
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                 ),
