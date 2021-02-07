@@ -1,3 +1,4 @@
+import 'package:cocktailo/constants.dart';
 import 'package:flutter/material.dart';
 import 'dart:math';
 
@@ -87,7 +88,7 @@ class _AnimatedSearchBarState extends State<AnimatedSearchBar>
         width: (toggle == 0) ? 48.0 : widget.width,
         curve: Curves.easeOut,
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: toggle == 0 ? kColorPink : kColorDarkBlue,
           borderRadius: BorderRadius.circular(30.0),
           boxShadow: [
             const BoxShadow(
@@ -137,6 +138,7 @@ class _AnimatedSearchBarState extends State<AnimatedSearchBar>
                       child: Icon(
                         widget.suffixIcon,
                         size: 20.0,
+                        color: kColorPink,
                       ),
                     ),
                     builder: (context, widget) {
@@ -168,16 +170,18 @@ class _AnimatedSearchBarState extends State<AnimatedSearchBar>
                     ///Text Controller. you can manipulate the text inside this textField by calling this controller.
                     controller: widget.textController,
                     cursorRadius: const Radius.circular(10.0),
-                    cursorWidth: 2.0,
-                    cursorColor: Colors.black,
+                    cursorWidth: 4.0,
+                    cursorColor: kColorPink,
                     onSubmitted: widget.onSubmit,
+                    style: kBasicStyle.copyWith(
+                      fontSize: 14,
+                    ),
                     decoration: InputDecoration(
                       floatingLabelBehavior: FloatingLabelBehavior.never,
                       labelText: widget.helpText,
-                      labelStyle: const TextStyle(
-                        color: Color(0xff5B5B5B),
-                        fontSize: 17.0,
-                        fontWeight: FontWeight.w500,
+                      labelStyle: kBasicStyle.copyWith(
+                        fontSize: 12,
+                        color: kColorPink,
                       ),
                       alignLabelWithHint: true,
                       border: OutlineInputBorder(
@@ -190,37 +194,30 @@ class _AnimatedSearchBarState extends State<AnimatedSearchBar>
               ),
             ),
 
-            ///Using material widget here to get the ripple effect on the prefix icon
-            Material(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(30.0),
-              child: IconButton(
-                splashRadius: 19.0,
-
-                ///if toggle is 1, which means it's open. so show the back icon, which will close it.
-                ///if the toggle is 0, which means it's closed, so tapping on it will expand the widget.
-                icon: Icon(
-                  toggle == 1 ? Icons.arrow_back_ios : widget.prefixIcon,
-                  size: 35,
-                  color: widget.prefixIconColor,
-                ),
-                onPressed: () {
-                  setState(
-                    () {
-                      ///if the search bar is closed
-                      if (toggle == 0) {
-                        toggle = 1;
-
-                        ///forward == expand
-                        _con.forward();
-                      } else {
-                        ///if the search bar is expanded
-                        widget.onTapArrow();
-                      }
-                    },
-                  );
-                },
+            /// Prefix icon
+            IconButton(
+              splashRadius: 19.0,
+              icon: Icon(
+                toggle == 1 ? Icons.arrow_back_ios : widget.prefixIcon,
+                size: 35,
+                color: toggle == 1 ? kColorPink : Colors.white,
               ),
+              onPressed: () {
+                setState(
+                  () {
+                    ///if the search bar is closed
+                    if (toggle == 0) {
+                      toggle = 1;
+
+                      ///forward == expand
+                      _con.forward();
+                    } else {
+                      ///if the search bar is expanded
+                      widget.onTapArrow();
+                    }
+                  },
+                );
+              },
             ),
           ],
         ),
