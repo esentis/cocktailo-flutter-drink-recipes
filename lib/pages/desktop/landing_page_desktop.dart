@@ -15,6 +15,28 @@ class LandingPageDesktop extends ConsumerWidget {
   LandingPageDesktop({this.cocktails});
   final ScrollController _scrollController = ScrollController();
   final TextEditingController _searchTextController = TextEditingController();
+
+  void initSearch() {
+    if (_searchTextController.text.length < 3) {
+      Get.snackbar(
+        '',
+        'Search must not be blank',
+        backgroundColor: kColorPink.withOpacity(0.8),
+        titleText: Text(
+          'Oops',
+          textAlign: TextAlign.center,
+          style: kBasicStyle,
+        ),
+        messageText: Text(
+          'Search must have at least 3 characters',
+          textAlign: TextAlign.center,
+          style: kSecondaryStyle,
+        ),
+        maxWidth: 450,
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context, ScopedReader watch) {
     return Scaffold(
@@ -54,9 +76,8 @@ class LandingPageDesktop extends ConsumerWidget {
           ),
           AnimatedSearchBar(
             width: 250,
-            onTapArrow: () {
-              print('hello');
-            },
+            helpText: 'Search by ingredient',
+            onTapArrow: initSearch,
             onSubmit: (value) {
               print('$value submitted');
             },
@@ -65,6 +86,10 @@ class LandingPageDesktop extends ConsumerWidget {
               print('tapped');
             },
             rtl: true,
+          ),
+          Text(
+            'Popular drinks',
+            style: kBasicStyle,
           ),
           Flexible(
             flex: 4,
