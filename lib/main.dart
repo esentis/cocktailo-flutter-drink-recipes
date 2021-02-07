@@ -66,17 +66,8 @@ class _MyAppState extends State<MyApp> {
       navigateAfterFuture: loadFromFuture(),
       loadingText: Text(
         'Preparing cocktails...',
-        style: TextStyle(
-          color: Colors.white,
+        style: kBasicStyle.copyWith(
           fontSize: 13,
-          fontFamily: 'LEMONMILK',
-          shadows: [
-            BoxShadow(
-              blurRadius: 5,
-              color: kColorPink,
-              spreadRadius: 5,
-            )
-          ],
         ),
       ),
       backgroundColor: kColorDarkBlue,

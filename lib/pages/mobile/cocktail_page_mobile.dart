@@ -87,17 +87,8 @@ class _CocktailPageMobileState extends State<CocktailPageMobile> {
           ),
           Text(
             widget.cocktail.name,
-            style: TextStyle(
-              color: Colors.white,
+            style: kBasicStyle.copyWith(
               fontSize: 22,
-              fontFamily: 'LEMONMILK',
-              shadows: [
-                BoxShadow(
-                  blurRadius: 5,
-                  color: kColorPink,
-                  spreadRadius: 5,
-                )
-              ],
             ),
           ),
           Flexible(
@@ -116,34 +107,16 @@ class _CocktailPageMobileState extends State<CocktailPageMobile> {
                                 Flexible(
                                   child: Text(
                                     e.name,
-                                    style: const TextStyle(
-                                      color: Colors.white,
+                                    style: kBasicStyle.copyWith(
                                       fontSize: 9,
-                                      fontFamily: 'LEMONMILK',
-                                      shadows: [
-                                        BoxShadow(
-                                          blurRadius: 5,
-                                          color: Color(0xffED1E79),
-                                          spreadRadius: 5,
-                                        )
-                                      ],
                                     ),
                                   ),
                                 ),
                                 Flexible(
                                   child: Text(
                                     e.measure,
-                                    style: const TextStyle(
-                                      color: Colors.white,
+                                    style: kSecondaryStyle.copyWith(
                                       fontSize: 13,
-                                      fontFamily: 'Chivo',
-                                      shadows: [
-                                        BoxShadow(
-                                          blurRadius: 5,
-                                          color: Color(0xffED1E79),
-                                          spreadRadius: 5,
-                                        )
-                                      ],
                                     ),
                                   ),
                                 ),
@@ -163,17 +136,8 @@ class _CocktailPageMobileState extends State<CocktailPageMobile> {
               child: Text(
                 widget.cocktail.instructions,
                 textAlign: TextAlign.center,
-                style: const TextStyle(
-                  color: Colors.white,
+                style: kBasicStyle.copyWith(
                   fontSize: 15,
-                  fontFamily: 'LEMONMILK',
-                  shadows: [
-                    BoxShadow(
-                      blurRadius: 5,
-                      color: Color(0xffED1E79),
-                      spreadRadius: 5,
-                    )
-                  ],
                 ),
               ),
             ),

@@ -24,17 +24,8 @@ class _IngredientsPageMobileState extends State<IngredientsPageMobile> {
           child: Text(
             'Search cocktails based on ingredient',
             textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Colors.white,
+            style: kBasicStyle.copyWith(
               fontSize: 12,
-              fontFamily: 'LEMONMILK',
-              shadows: [
-                BoxShadow(
-                  blurRadius: 5,
-                  color: kColorPink,
-                  spreadRadius: 5,
-                )
-              ],
             ),
           ),
         ),
@@ -85,17 +76,8 @@ class _IngredientsPageMobileState extends State<IngredientsPageMobile> {
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
                       snapshot.data['drinks'][index]['strIngredient1'],
-                      style: TextStyle(
-                        color: Colors.white,
+                      style: kBasicStyle.copyWith(
                         fontSize: 22,
-                        fontFamily: 'LEMONMILK',
-                        shadows: [
-                          BoxShadow(
-                            blurRadius: 5,
-                            color: kColorPink,
-                            spreadRadius: 5,
-                          )
-                        ],
                       ),
                     ),
                   ),

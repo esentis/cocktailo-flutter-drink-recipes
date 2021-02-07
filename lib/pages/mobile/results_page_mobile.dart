@@ -48,17 +48,8 @@ class _ResultsPageMobileState extends State<ResultsPageMobile> {
           child: Text(
             'Search results',
             textAlign: TextAlign.center,
-            style: TextStyle(
-              color: Colors.white,
+            style: kBasicStyle.copyWith(
               fontSize: 12,
-              fontFamily: 'LEMONMILK',
-              shadows: [
-                BoxShadow(
-                  blurRadius: 5,
-                  color: kColorPink,
-                  spreadRadius: 5,
-                )
-              ],
             ),
           ),
         ),
@@ -86,17 +77,8 @@ class _ResultsPageMobileState extends State<ResultsPageMobile> {
             padding: const EdgeInsets.all(8.0),
             child: Text(
               cocktails[index].name,
-              style: TextStyle(
-                color: Colors.white,
+              style: kBasicStyle.copyWith(
                 fontSize: 22,
-                fontFamily: 'LEMONMILK',
-                shadows: [
-                  BoxShadow(
-                    blurRadius: 5,
-                    color: kColorPink,
-                    spreadRadius: 5,
-                  )
-                ],
               ),
             ),
           ),
