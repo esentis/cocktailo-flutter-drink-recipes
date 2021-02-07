@@ -73,5 +73,11 @@ flutter:
         - asset: fonts/LEMONMILK-Regular.otf
         - asset: fonts/LEMONMILK-Bold.otf
           weight: 700
+    - family: CookiesLoverEmpty
+      fonts:
+        - asset: fonts/CookiesLover-Empty.otf
+    - family: CookiesLoverFilled
+      fonts:
+        - asset: fonts/CookiesLover-Filled.otf
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
