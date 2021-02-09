@@ -1,6 +1,6 @@
 # Cocktailo
 
-<a href="https://play.google.com/store/apps/details?id=gr.esentis.blue_waves_flutter"><img src="./assets/logo.png" width="150"  title="Blue Waves Open Beta" alt="Blue Waves Open Beta"></a>
+<a href="https://play.google.com/store/apps/details?id=gr.esentis.blue_waves_flutter"><img src="./assets/cocktailo.gif" width="450"  title="Blue Waves Open Beta" alt="Blue Waves Open Beta"></a>
 
 [![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)
 
