@@ -12,44 +12,40 @@ class CocktailPageDesktop extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ScopedReader watch) {
-    print(cocktail.videoUrl);
-    print('helllo');
     return Scaffold(
       backgroundColor: kColorDarkBlue,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
+      body: Stack(
         children: [
-          Flexible(
-            child: Align(
-              alignment: Alignment.topCenter,
-              child: Hero(
-                tag: 'cocktail_logo',
-                child: Container(
-                  child: ParallaxStack(layers: [
-                    ParallaxLayer(
-                      yRotation: -0.35,
-                      xOffset: 40,
-                      enable3D: true,
-                      offset: const Offset(340, 0),
-                      child: Image.asset(
-                        'margharita.png',
-                        height: 130,
-                      ),
+          Align(
+            alignment: Alignment.topCenter,
+            child: Hero(
+              tag: 'cocktail_logo',
+              child: Container(
+                child: ParallaxStack(layers: [
+                  ParallaxLayer(
+                    yRotation: -0.35,
+                    xOffset: 40,
+                    enable3D: true,
+                    offset: const Offset(340, 0),
+                    child: Image.asset(
+                      'margharita.png',
+                      height: 130,
                     ),
-                    ParallaxLayer(
-                      yRotation: -0.6,
-                      xRotation: -0.1,
-                      offset: const Offset(0, 50),
-                      xOffset: 80,
-                      enable3D: true,
-                      child: Image.asset('logo.png'),
-                    ),
-                  ]),
-                ),
+                  ),
+                  ParallaxLayer(
+                    yRotation: -0.6,
+                    xRotation: -0.1,
+                    offset: const Offset(0, 50),
+                    xOffset: 80,
+                    enable3D: true,
+                    child: Image.asset('logo.png'),
+                  ),
+                ]),
               ),
             ),
           ),
-          Flexible(
+          Align(
+            alignment: Alignment.centerLeft,
             child: Hero(
               tag: cocktail.image,
               child: ExtendedImage(
@@ -59,24 +55,34 @@ class CocktailPageDesktop extends ConsumerWidget {
               ),
             ),
           ),
-          if (cocktail.videoUrl.isNotEmpty)
-            Flexible(
-              flex: 2,
-              child: YoutubePlayer(
-                controller: YoutubePlayerController(
-                  initialVideoId:
-                      YoutubePlayer.convertUrlToId(cocktail.videoUrl),
-                  flags: const YoutubePlayerFlags(
-                    autoPlay: true,
-                    mute: true,
-                  ),
+          Align(
+            alignment: Alignment.centerRight,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 45.0),
+              child: SizedBox(
+                width: 550,
+                height: 450,
+                child: Text(
+                  cocktail.instructions,
+                  style: kBasicStyle,
                 ),
-                bottomActions: [
-                  CurrentPosition(),
-                  ProgressBar(isExpanded: true),
-                  RemainingDuration(),
-                ],
               ),
+            ),
+          ),
+          if (cocktail.videoUrl.isNotEmpty)
+            YoutubePlayer(
+              controller: YoutubePlayerController(
+                initialVideoId: YoutubePlayer.convertUrlToId(cocktail.videoUrl),
+                flags: const YoutubePlayerFlags(
+                  autoPlay: true,
+                  mute: true,
+                ),
+              ),
+              bottomActions: [
+                CurrentPosition(),
+                ProgressBar(isExpanded: true),
+                RemainingDuration(),
+              ],
             ),
         ],
       ),
