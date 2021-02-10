@@ -2,6 +2,7 @@ import 'package:cocktailo/constants.dart';
 import 'package:cocktailo/models/cocktail.dart';
 import 'package:cocktailo/pages/desktop/cocktail_page_desktop.dart';
 import 'package:cocktailo/widgets/animated_search.dart';
+import 'package:cocktailo/pages/desktop/results_page_desktop.dart';
 import 'package:draggable_scrollbar/draggable_scrollbar.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -78,8 +79,9 @@ class LandingPageDesktop extends ConsumerWidget {
             width: 250,
             helpText: 'Search by ingredient',
             onTapArrow: initSearch,
-            onSubmit: (value) {
+            onSubmit: (value) async {
               print('$value submitted');
+              await Get.to(ResultsPageDesktop(ingredient: value));
             },
             textController: _searchTextController,
             onSuffixTap: () {

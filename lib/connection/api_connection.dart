@@ -1,3 +1,4 @@
+import 'package:cocktailo/constants.dart';
 import 'package:cocktailo/models/cocktail.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -102,9 +103,7 @@ Future getPopularDrinks() async {
   // ignore: omit_local_variable_types
   List<Cocktail> cocktails = [];
   response.data['drinks'].forEach((element) {
-    var cocktail = Cocktail();
-    cocktail.fromMap(element);
-    cocktails.add(cocktail);
+    cocktails.add(Cocktail.fromMap(element));
   });
   return cocktails;
 }

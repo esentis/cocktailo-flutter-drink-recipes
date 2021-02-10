@@ -24,9 +24,7 @@ class _ResultsPageMobileState extends State<ResultsPageMobile> {
     var response = await searchDrinkByIngredient(widget.ingredient);
 
     response['drinks'].forEach((element) {
-      var cocktail = Cocktail();
-      cocktail.fromMap(element);
-      cocktails.add(cocktail);
+      cocktails.add(Cocktail.fromMap(element));
     });
     logger.wtf(cocktails.length.toString());
     setState(() {});

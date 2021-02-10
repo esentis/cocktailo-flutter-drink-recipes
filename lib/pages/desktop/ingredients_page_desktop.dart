@@ -24,8 +24,6 @@ class _IngredientsPageDesktopState extends State<IngredientsPageDesktop> {
               strokeWidth: 14,
             ));
           }
-
-          logger.wtf(snapshot.data['drinks'].length);
           return Container(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
