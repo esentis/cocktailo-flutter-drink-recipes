@@ -12,48 +12,19 @@ class Cocktail {
   String instructions = '';
   String videoUrl = '';
   List<Ingredient> ingredients = [];
+  static List<Ingredient> temporaryIngredients = [];
+  Cocktail({
+    this.category,
+    this.glassType,
+    this.id,
+    this.image,
+    this.ingredients,
+    this.instructions,
+    this.name,
+    this.videoUrl,
+  });
 
-  /// Method that creates a Cocktail object from Map API response.
-  void fromMap(Map<String, dynamic> cocktailMap) {
-    id = int.parse(cocktailMap.entries
-        .firstWhere((element) => element.key == 'idDrink')
-        .value
-        .toString());
-    videoUrl = cocktailMap.entries.contains('strVideo')
-        ? cocktailMap.entries
-            .firstWhere((element) => element.key == 'strVideo')
-            .value
-            .toString()
-        : '';
-    name = cocktailMap.entries
-        .firstWhere((element) => element.key == 'strDrink')
-        .value
-        .toString();
-    category = cocktailMap.entries.contains('strCategory')
-        ? cocktailMap.entries
-            .firstWhere((element) => element.key == 'strCategory')
-            .value
-            .toString()
-        : '';
-    glassType = cocktailMap.entries.contains('strGlass')
-        ? cocktailMap.entries
-            .firstWhere((element) => element.key == 'strGlass')
-            .value
-            .toString()
-        : '';
-    image = cocktailMap.entries
-        .where((element) => element.key == 'strDrinkThumb')
-        .first
-        .value
-        .toString();
-    instructions = cocktailMap.entries.contains('strInstructions')
-        ? cocktailMap.entries
-            .where((element) => element.key == 'strInstructions')
-            .first
-            .value
-            .toString()
-        : '';
-
+  static List<Ingredient> mapIngredients(Map<String, dynamic> cocktailMap) {
     var ingredientsMapped = cocktailMap.entries
         .where((element) =>
             element.key.contains('strIngredient') && element.value != null)
@@ -65,13 +36,55 @@ class Cocktail {
     if (ingredientsMapped.isNotEmpty) {
       for (var i = 0; i < ingredientsMapped.length; i++) {
         if (i >= measures.length) {
-          ingredients
+          temporaryIngredients
               .add(Ingredient(name: ingredientsMapped[i].value, measure: ''));
         } else {
-          ingredients.add(Ingredient(
+          temporaryIngredients.add(Ingredient(
               name: ingredientsMapped[i].value, measure: measures[i].value));
         }
       }
     }
+    return temporaryIngredients;
   }
+
+  /// Method that creates a Cocktail object from Map API response.
+  factory Cocktail.fromMap(Map<String, dynamic> cocktailMap) => Cocktail(
+        category: cocktailMap.entries.contains('strCategory')
+            ? cocktailMap.entries
+                .firstWhere((element) => element.key == 'strCategory')
+                .value
+                .toString()
+            : '',
+        glassType: cocktailMap.entries.contains('strGlass')
+            ? cocktailMap.entries
+                .firstWhere((element) => element.key == 'strGlass')
+                .value
+                .toString()
+            : '',
+        id: int.parse(cocktailMap.entries
+            .firstWhere((element) => element.key == 'idDrink')
+            .value
+            .toString()),
+        image: cocktailMap.entries
+            .where((element) => element.key == 'strDrinkThumb')
+            .first
+            .value
+            .toString(),
+        ingredients: mapIngredients(cocktailMap),
+        instructions: cocktailMap.entries
+            .where((element) => element.key == 'strInstructions')
+            .first
+            .value
+            .toString(),
+        name: cocktailMap.entries
+            .firstWhere((element) => element.key == 'strDrink')
+            .value
+            .toString(),
+        videoUrl: cocktailMap.entries.contains('strVideo')
+            ? cocktailMap.entries
+                .firstWhere((element) => element.key == 'strVideo')
+                .value
+                .toString()
+            : '',
+      );
 }
