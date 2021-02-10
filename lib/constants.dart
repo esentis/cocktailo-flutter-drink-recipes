@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
+
+/// The basic logger of the app.
+var kLogger = Logger();
 
 /// ### Pink color of the app
 /// ```dart
