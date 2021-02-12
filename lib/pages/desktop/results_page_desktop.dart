@@ -2,6 +2,7 @@ import 'package:cocktailo/connection/api_connection.dart';
 import 'package:cocktailo/constants.dart';
 import 'package:cocktailo/models/cocktail.dart';
 import 'package:cocktailo/pages/desktop/cocktail_page_desktop.dart';
+import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:get/get.dart';
@@ -21,12 +22,8 @@ class ResultsPageDesktop extends StatefulWidget {
 class _ResultsPageDesktopState extends State<ResultsPageDesktop> {
   List<Cocktail> cocktails = [];
   void searchResults() async {
-    var response = await searchDrinkByIngredient(widget.ingredient);
+    cocktails = await searchDrinkByIngredient(widget.ingredient);
 
-    response['drinks'].forEach((element) {
-      cocktails.add(Cocktail.fromMap(element));
-    });
-    logger.wtf(cocktails.length.toString());
     setState(() {});
   }
 
@@ -61,22 +58,27 @@ class _ResultsPageDesktopState extends State<ResultsPageDesktop> {
           ),
         ),
       ),
-      body: ListView.builder(
+      body: GridView.builder(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 5,
+          crossAxisSpacing: 5.0,
+          mainAxisSpacing: 5.0,
+        ),
         itemCount: cocktails.length,
-        itemBuilder: (context, index) => FlatButton(
-          onPressed: () async {
-            await Get.to(
-              CocktailPageDesktop(
-                cocktails[index],
-              ),
-            );
+        itemBuilder: (context, index) => GestureDetector(
+          onTap: () async {
+            await Get.to(CocktailPageDesktop(cocktails[index]));
           },
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              cocktails[index].name,
-              style: kBasicStyle.copyWith(
-                fontSize: 22,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(20),
+            child: Container(
+              width: 150,
+              height: 150,
+              child: Hero(
+                tag: cocktails[index].image,
+                child: ExtendedImage(
+                  image: Image.network(cocktails[index].image).image,
+                ),
               ),
             ),
           ),
