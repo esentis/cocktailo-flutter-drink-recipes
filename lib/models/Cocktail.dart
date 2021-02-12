@@ -47,17 +47,22 @@ class Cocktail {
     return temporaryIngredients;
   }
 
-  /// Method that creates a Cocktail object from Map API response.
+  /// Cocktail constructor from detailed map.
   factory Cocktail.fromMap(Map<String, dynamic> cocktailMap) => Cocktail(
         category: cocktailMap.entries.contains('strCategory')
             ? cocktailMap.entries
-                .firstWhere((element) => element.key == 'strCategory')
+                .firstWhere((element) => element.key == 'strCategory',
+                    orElse: () {
+                  return const MapEntry('strCategory', '');
+                })
                 .value
                 .toString()
             : '',
         glassType: cocktailMap.entries.contains('strGlass')
             ? cocktailMap.entries
-                .firstWhere((element) => element.key == 'strGlass')
+                .firstWhere((element) => element.key == 'strGlass', orElse: () {
+                  return const MapEntry('strGlass', '');
+                })
                 .value
                 .toString()
             : '',
@@ -66,25 +71,29 @@ class Cocktail {
             .value
             .toString()),
         image: cocktailMap.entries
-            .where((element) => element.key == 'strDrinkThumb')
-            .first
+            .firstWhere((element) => element.key == 'strDrinkThumb',
+                orElse: () {
+              return const MapEntry('strDrinkThumb', '');
+            })
             .value
             .toString(),
         ingredients: mapIngredients(cocktailMap),
         instructions: cocktailMap.entries
-            .where((element) => element.key == 'strInstructions')
-            .first
+            .firstWhere((element) => element.key == 'strInstructions',
+                orElse: () {
+              return const MapEntry('strInstructions', '');
+            })
             .value
             .toString(),
         name: cocktailMap.entries
             .firstWhere((element) => element.key == 'strDrink')
             .value
             .toString(),
-        videoUrl: cocktailMap.entries.contains('strVideo')
-            ? cocktailMap.entries
-                .firstWhere((element) => element.key == 'strVideo')
-                .value
-                .toString()
-            : '',
+        videoUrl: cocktailMap.entries
+            .firstWhere((element) => element.key == 'strVideo', orElse: () {
+              return const MapEntry('strVideo', '');
+            })
+            .value
+            .toString(),
       );
 }
