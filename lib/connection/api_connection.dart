@@ -1,4 +1,3 @@
-import 'package:cocktailo/constants.dart';
 import 'package:cocktailo/models/cocktail.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
