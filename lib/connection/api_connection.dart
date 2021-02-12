@@ -113,11 +113,17 @@ Future searchDrinkByIngredient(String ingredient) async {
   try {
     response = await tmdb.get('filter.php?i=$ingredient');
     logger.i('Search drinks with $ingredient as ingredient.');
+    logger.i(response.data);
+    // ignore: omit_local_variable_types
+    List<Cocktail> cocktails = [];
+    response.data['drinks'].forEach((element) {
+      cocktails.add(Cocktail.fromMap(element));
+    });
+    return cocktails;
   } on DioError catch (e) {
     logger.e(e);
     return e.type;
   }
-  return response.data;
 }
 
 Future searchDrinkByName(String name) async {
