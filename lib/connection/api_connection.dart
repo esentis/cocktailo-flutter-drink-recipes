@@ -136,3 +136,16 @@ Future searchDrinkByName(String name) async {
   }
   return response.data;
 }
+
+Future searchDrinkById(int id) async {
+  Response response;
+  try {
+    response = await tmdb.get('lookup.php?i=$id');
+    logger.i('Search drinks with id $id.');
+  } on DioError catch (e) {
+    logger.e(e);
+    return e.type;
+  }
+// We map the response to a Cocktail
+  return Cocktail.fromMap(response.data['drinks'].first);
+}
