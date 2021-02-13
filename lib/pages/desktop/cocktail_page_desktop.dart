@@ -61,7 +61,7 @@ class CocktailPageDesktop extends ConsumerWidget {
               padding: const EdgeInsets.symmetric(horizontal: 45.0),
               child: SizedBox(
                 width: 550,
-                height: 450,
+                height: 550,
                 child: Text(
                   cocktail.instructions,
                   style: kBasicStyle,
@@ -69,21 +69,6 @@ class CocktailPageDesktop extends ConsumerWidget {
               ),
             ),
           ),
-          if (cocktail.videoUrl.isNotEmpty)
-            YoutubePlayer(
-              controller: YoutubePlayerController(
-                initialVideoId: YoutubePlayer.convertUrlToId(cocktail.videoUrl),
-                flags: const YoutubePlayerFlags(
-                  autoPlay: true,
-                  mute: true,
-                ),
-              ),
-              bottomActions: [
-                CurrentPosition(),
-                ProgressBar(isExpanded: true),
-                RemainingDuration(),
-              ],
-            ),
         ],
       ),
     );
