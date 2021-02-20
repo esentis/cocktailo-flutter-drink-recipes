@@ -96,13 +96,13 @@ TextStyle kBubbleTextFilled = TextStyle(
 /// Grid items animation options.
 final animatedOptions = const LiveOptions(
   // Start animation after (default zero)
-  delay: Duration(milliseconds: 300),
+  //delay: Duration(milliseconds: 0),
 
   // Show each item through (default 250)
-  showItemInterval: Duration(milliseconds: 200),
+  showItemInterval: Duration(milliseconds: 50),
 
   // Animation duration (default 250)
-  showItemDuration: Duration(milliseconds: 300),
+  showItemDuration: Duration(milliseconds: 200),
 
   // Animations starts at 0.05 visible
   // item fraction in sight (default 0.025)
@@ -111,5 +111,5 @@ final animatedOptions = const LiveOptions(
   // Repeat the animation of the appearance
   // when scrolling in the opposite direction (default false)
   // To get the effect as in a showcase for ListView, set true
-  reAnimateOnVisibility: false,
+  reAnimateOnVisibility: true,
 );
