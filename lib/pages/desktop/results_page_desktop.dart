@@ -62,7 +62,7 @@ class _ResultsPageDesktopState extends State<ResultsPageDesktop> {
       body: LiveGrid.options(
         options: animatedOptions,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 5,
+          crossAxisCount: 10,
           crossAxisSpacing: 5.0,
           mainAxisSpacing: 5.0,
         ),
@@ -81,8 +81,11 @@ class _ResultsPageDesktopState extends State<ResultsPageDesktop> {
               ).animate(animation),
               child: GestureDetector(
                 onTap: () async {
-                  await Get.to(CocktailPageDesktop(
-                      await searchDrinkById(cocktails[index].id)));
+                  await Get.to(
+                    CocktailPageDesktop(
+                      await searchDrinkById(cocktails[index].id),
+                    ),
+                  );
                 },
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(20),
