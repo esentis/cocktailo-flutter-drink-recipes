@@ -2,12 +2,14 @@ import 'package:animations/animations.dart';
 import 'package:cocktailo/constants.dart';
 import 'package:cocktailo/models/cocktail.dart';
 import 'package:cocktailo/pages/mobile/cocktail_page_mobile.dart';
+import 'package:cocktailo/pages/mobile/results_page_mobile.dart';
 import 'package:cocktailo/provider/chosen_cocktail.dart';
+import 'package:cocktailo/widgets/animated_search.dart';
 import 'package:cocktailo/widgets/dillema.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
-import 'package:cocktailo/widgets/menu.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get/get.dart';
 
 // ignore: must_be_immutable
 class LandingPageMobile extends ConsumerWidget {
@@ -19,14 +21,14 @@ class LandingPageMobile extends ConsumerWidget {
   List<Cocktail> cocktailsSecondHalf = [];
 
   void mapCocktails() {
-    logger.wtf('All popular cocktails are ${cocktailsResponse.length}');
+    kLogger.wtf('All popular cocktails are ${cocktailsResponse.length}');
     cocktailsFirstHalf =
         cocktailsResponse.sublist(0, (cocktailsResponse.length / 2).floor());
     cocktailsSecondHalf = cocktailsResponse.sublist(
         (cocktailsResponse.length / 2).floor(), cocktailsResponse.length);
-    logger.wtf(cocktailsFirstHalf.toString());
-    logger.wtf(cocktailsSecondHalf.toString());
-    logger.wtf('${cocktailsFirstHalf.length} ${cocktailsSecondHalf.length}');
+    kLogger.wtf(cocktailsFirstHalf.toString());
+    kLogger.wtf(cocktailsSecondHalf.toString());
+    kLogger.wtf('${cocktailsFirstHalf.length} ${cocktailsSecondHalf.length}');
   }
 
   @override
@@ -50,9 +52,22 @@ class LandingPageMobile extends ConsumerWidget {
                 ),
               ),
             ),
-            const Flexible(
-              flex: 1,
-              child: Menu(),
+            Padding(
+              padding: const EdgeInsets.only(left: 12.0),
+              child: AnimatedSearchBar(
+                width: 250,
+                helpText: 'Search by ingredient',
+                onTapArrow: () {},
+                onSubmit: (value) async {
+                  print('$value submitted');
+                  await Get.to(ResultsPageMobile(ingredient: value));
+                },
+                textController: TextEditingController(),
+                onSuffixTap: () {
+                  print('tapped');
+                },
+                rtl: false,
+              ),
             ),
             Flexible(
               flex: 14,
