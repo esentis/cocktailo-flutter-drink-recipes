@@ -4,7 +4,6 @@ import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mouse_parallax/mouse_parallax.dart';
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class CocktailPageDesktop extends ConsumerWidget {
   final Cocktail cocktail;

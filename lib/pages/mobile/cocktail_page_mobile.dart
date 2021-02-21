@@ -3,6 +3,7 @@ import 'package:cocktailo/models/cocktail.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:get/get.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class CocktailPageMobile extends StatefulWidget {
@@ -20,7 +21,6 @@ class CocktailPageMobile extends StatefulWidget {
 }
 
 class _CocktailPageMobileState extends State<CocktailPageMobile> {
-  final ScrollController _ingredientsScrollController = ScrollController();
   YoutubePlayerController _controller;
   @override
   void initState() {
@@ -42,9 +42,6 @@ class _CocktailPageMobileState extends State<CocktailPageMobile> {
 
   @override
   Widget build(BuildContext context) {
-    widget.cocktail.ingredients.forEach((element) {
-      kLogger.wtf(element.name);
-    });
     return Scaffold(
       backgroundColor: kColorDarkBlue,
       body: CustomScrollView(
@@ -86,7 +83,7 @@ class _CocktailPageMobileState extends State<CocktailPageMobile> {
                   vertical: 5,
                 ),
                 child: FlatButton(
-                  onPressed: widget.onBack,
+                  onPressed: widget.onBack ?? Get.back,
                   padding: const EdgeInsets.all(5),
                   child: Icon(
                     Foundation.arrow_left,
