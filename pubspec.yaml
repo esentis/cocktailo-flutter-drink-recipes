@@ -26,7 +26,7 @@ dependencies:
   animations: ^1.1.2
   auto_animated: ^2.1.0
   cupertino_icons: ^1.0.0
-  dio: ^3.0.10
+  dio: ^5.0.0
   draggable_scrollbar: ^0.0.4
   extended_image: ^1.5.0
   flutter_dotenv: ^2.1.0
